@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="fr.inria.anhalytics.commons.dao.batis.OrganisationIbatisDAO">
+    <cache/>
+
+    <select id="getOrganisationByID" resultType="fr.inria.anhalytics.commons.entities.Organisation">
+        SELECT * FROM ORGANISATION org
+        WHERE org.organisationID = #{organisationID};
+    </select>
+
+    <select id="getOrganisationNamesByOrganisationId"
+            resultType="fr.inria.anhalytics.commons.entities.Organisation_Name">
+        SELECT * FROM ORGANISATION_NAME orgname
+        WHERE orgname.organisationID = #{organisationID}
+    </select>
+
+    <select id="getOrganisationIdentifiersByOrganisationId"
+            resultType="fr.inria.anhalytics.commons.entities.Organisation_Identifier">
+        SELECT * FROM ORGANISATION_IDENTIFIER org_id
+        WHERE org_id.organisationID = #{organisationID}
+    </select>
+
+    <select id="getAllOrganisations" resultType="fr.inria.anhalytics.commons.entities.Organisation">
+      SELECT * FROM ORGANISATION;
+    </select>
+
+    <insert id="insertOrganisation" keyColumn="organisationID" flushCache="true">
+      INSERT INTO ORGANISATION (type, url, status) VALUES (#{type}, #{url}, #{status})
+    </insert>
+
+    <insert id="insertOrganisationIdentifier" keyColumn="organisation_identifierID" flushCache="true" >
+        INSERT INTO ORGANISATION_IDENTIFIER (organisationID, ID, type)
+        VALUES (#{organisationID}, #{ID}, #{type})
+    </insert>
+</mapper>
