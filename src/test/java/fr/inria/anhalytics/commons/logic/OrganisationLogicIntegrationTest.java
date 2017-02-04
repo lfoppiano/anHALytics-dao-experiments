@@ -47,9 +47,10 @@ public class OrganisationLogicIntegrationTest {
         Connection conn = session.getConnection();
         Reader reader = Resources.getResourceAsReader("CreateDB_organisation.sql");
         ScriptRunner runner = new ScriptRunner(conn);
-        runner.setThrowWarning(true);
+        runner.setStopOnError(true);
         runner.setAutoCommit(true);
         runner.runScript(reader);
+        session.commit();
         session.close();
         reader.close();
     }
@@ -70,15 +71,11 @@ public class OrganisationLogicIntegrationTest {
 
         assertThat(org2, notNullValue());
 
-        long organisationID2 = mapper.insertOrganisation("career", "", "VALID");
+        long organisationID2 = mapper.insertOrganisation("career2", "", "VALID2");
         sqlSession.commit();
 
         assertThat(organisationID2, greaterThan(1l));
 
         System.out.println(org);
-        //System.out.println(mapper.insertOrganisationIdentifier(organisationID, "bao", "type"));
-//            System.out.println(mapper.getOrganisationIdentifiersByOrganisationID(organisationID));
-
-
     }
 }
