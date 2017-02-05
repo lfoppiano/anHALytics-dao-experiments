@@ -64,18 +64,27 @@ public class OrganisationLogicIntegrationTest {
         Organisation org = mapper.getOrganisationByID(1l);
         assertThat(org, nullValue());
 
-        long organisationID = mapper.insertOrganisation("career", "", "VALID");
+        Organisation org1 = new Organisation();
+        org1.setStatus("bao");
+//        org1.setType("institution");
+//        org1.setUrl("http://www.google.com");
+        mapper.insertOrganisation(org1);
         sqlSession.commit();
 
-        Organisation org2 = mapper.getOrganisationByID(organisationID);
+        Organisation org1_2 = mapper.getOrganisationByID(org1.getOrganisationId());
+        assertThat(org1_2, notNullValue());
 
+        mapper.insertOrganisation(org1);
+        sqlSession.commit();
+        assertThat(org1.getOrganisationId(), greaterThan(0l));
+
+        /*long organisationID1 = mapper.insertOrganisation("career", "", "VALID");
+        sqlSession.commit();
+        Organisation org2 = mapper.getOrganisationByID(organisationID1);
         assertThat(org2, notNullValue());
 
         long organisationID2 = mapper.insertOrganisation("career2", "", "VALID2");
         sqlSession.commit();
-
-        assertThat(organisationID2, greaterThan(1l));
-
-        System.out.println(org);
+        assertThat(organisationID2, greaterThan(1l));*/
     }
 }

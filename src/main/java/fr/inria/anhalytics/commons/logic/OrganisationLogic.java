@@ -39,31 +39,30 @@ public class OrganisationLogic extends DAO<Organisation, Long> {
         try {
             OrganisationIbatisDAO organisationMapper = session.getMapper(OrganisationIbatisDAO.class);
 
-            long organisationID = organisationMapper.insertOrganisation(obj.getType(), obj.getUrl(), obj.getStatus());
-            obj.setOrganisationId(organisationID);
+            organisationMapper.insertOrganisation(obj);
 
 
             for (Organisation_Name name : obj.getNames()) {
                 java.sql.Date updateDate = getDate(name.getLastupdate_date());
-                organisationMapper.insertOrganisationName(organisationID, name.getName(), updateDate);
+                organisationMapper.insertOrganisationName(obj.getOrganisationId(), name.getName(), updateDate);
             }
 
             for (PART_OF relation : obj.getRels()) {
                 final Long organisationMotherID = relation.getOrganisation_mother().getOrganisationId();
                 PART_OF relationOppositeDirection = organisationMapper.getPartOfByOrgIDANDOrgMotherID(
                         organisationMotherID,
-                        organisationID);
+                        obj.getOrganisationId());
 
                 if (relationOppositeDirection == null) {
                     organisationMapper.insertMotherOrganisation(
-                            organisationMotherID, organisationID,
+                            organisationMotherID, obj.getOrganisationId(),
                             getDate(relation.getFromDate()), getDate(relation.getUntilDate()));
                 }
             }
 
             for (Organisation_Identifier oi : obj.getOrganisation_identifiers()) {
                 organisationMapper.insertOrganisationIdentifier(
-                        organisationID, oi.getId(), oi.getType()
+                        obj.getOrganisationId(), oi.getId(), oi.getType()
                 );
             }
 

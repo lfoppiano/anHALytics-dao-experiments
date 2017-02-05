@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="fr.inria.anhalytics.commons.dao.batis.OrganisationIbatisDAO">
-    <cache/>
+    <!--<cache/>-->
 
     <select id="getOrganisationByID" resultType="fr.inria.anhalytics.commons.entities.Organisation">
         SELECT * FROM ORGANISATION org
@@ -26,11 +26,16 @@
       SELECT * FROM ORGANISATION;
     </select>
 
-    <insert id="insertOrganisation" keyColumn="organisationID" flushCache="true">
-      INSERT INTO ORGANISATION (type, url, status) VALUES (#{type}, #{url}, #{status})
+<!--    <insert id="insertOrganisation" useGeneratedKeys="true" flushCache="true" keyProperty="organisationId">
+        INSERT INTO ORGANISATION (type, url, status) VALUES (#{type}, #{url}, #{status})
+    </insert>-->
+
+    <insert id="insertOrganisation" useGeneratedKeys="true" flushCache="true" keyProperty="organisationId">
+        INSERT INTO ORGANISATION (type, url, status) VALUES (#{type}, #{url}, #{status})
     </insert>
 
-    <insert id="insertOrganisationIdentifier" keyColumn="organisation_identifierID" flushCache="true" >
+    <insert id="insertOrganisationIdentifier" useGeneratedKeys="true" keyColumn="organisation_identifierID"
+            keyProperty="organisation_identifierId" flushCache="true">
         INSERT INTO ORGANISATION_IDENTIFIER (organisationID, ID, type)
         VALUES (#{organisationID}, #{ID}, #{type})
     </insert>

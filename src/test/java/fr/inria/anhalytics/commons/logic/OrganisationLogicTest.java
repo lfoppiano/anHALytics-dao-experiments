@@ -51,7 +51,7 @@ public class OrganisationLogicTest {
         expect(sessionFactoryMock.openSession()).andReturn(sqlSessionMock);
         expect(sqlSessionMock.getMapper((Class<Object>) anyObject())).andReturn(organisationIbatisDAOMock);
 
-        expect(organisationIbatisDAOMock.insertOrganisation(organisation.getType(), organisation.getUrl(), organisation.getStatus())).andReturn(1l);
+        expect(organisationIbatisDAOMock.insertOrganisation(organisation)).andReturn(1l);
         expect(organisationIbatisDAOMock.insertOrganisationName(1l, "name1", dateName1)).andReturn(1l);
         expect(organisationIbatisDAOMock.insertOrganisationName(1l, "name2", dateName2)).andReturn(2l);
 

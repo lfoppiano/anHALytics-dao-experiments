@@ -15,7 +15,7 @@ import java.util.List;
 public interface OrganisationIbatisDAO {
 
     //INSERTS
-    long insertOrganisation(@Param("type") String type, @Param("url") String url, @Param("status") String status);
+    long insertOrganisation(Organisation organisation);
 
     long insertOrganisationName(long organisationID, String name, Date lastUpdate);
 
