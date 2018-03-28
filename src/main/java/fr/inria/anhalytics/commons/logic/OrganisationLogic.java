@@ -38,6 +38,10 @@ public class OrganisationLogic extends DAO<Organisation, Long> {
         SqlSession session = sqlSessionFactory.openSession();
         try {
             OrganisationIbatisDAO organisationMapper = session.getMapper(OrganisationIbatisDAO.class);
+
+            if(organisationMapper.getOrganisationByID(obj.getOrganisationId()) != null) {
+                throw new RuntimeException("The organisation already exists");
+            }
             organisationMapper.insertOrganisation(obj);
 
             for (Organisation_Name name : obj.getNames()) {

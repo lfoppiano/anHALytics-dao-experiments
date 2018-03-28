@@ -52,16 +52,17 @@ public class OrganisationLogicTest {
         expect(sessionFactoryMock.openSession()).andReturn(sqlSessionMock);
         expect(sqlSessionMock.getMapper((Class<Object>) anyObject())).andReturn(organisationIbatisDAOMock);
 
-        Capture<Organisation> capturedOrganisation = Capture.newInstance();
-        
-        expect(organisationIbatisDAOMock.insertOrganisation(capture(capturedOrganisation))).andReturn(1l);
+        expect(organisationIbatisDAOMock.insertOrganisation(organisation)).andReturn(1l);
+        //This done automatically, but doesn't work in this test
+        organisation.setOrganisationId(12l);
+
         expect(organisationIbatisDAOMock.insertOrganisationName(1l, "name1", dateName1)).andReturn(1l);
         expect(organisationIbatisDAOMock.insertOrganisationName(1l, "name2", dateName2)).andReturn(2l);
 
         sqlSessionMock.close();
         replay(sessionFactoryMock, sqlSessionMock, organisationIbatisDAOMock);
         target.create(organisation);
-        System.out.println(capturedOrganisation.getValue().getOrganisationId());
+        System.out.println(organisation.getOrganisationId());
         verify(sessionFactoryMock, sqlSessionMock, organisationIbatisDAOMock);
     }
 

@@ -25,7 +25,6 @@ public interface OrganisationIbatisDAO {
     long insertOrganisationIdentifier(@Param("organisationID") long organisationID,
                                       @Param("ID") String ID, @Param("type") String type);
 
-
     //UPDATE
     void updateOrganisation(long organisationID, String type, String url, String status);
 

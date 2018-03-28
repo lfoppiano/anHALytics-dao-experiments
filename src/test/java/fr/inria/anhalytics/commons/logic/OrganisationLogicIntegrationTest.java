@@ -15,6 +15,7 @@ import org.junit.Test;
 import java.io.Reader;
 import java.sql.Connection;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.greaterThan;
@@ -73,6 +74,8 @@ public class OrganisationLogicIntegrationTest {
 
         Organisation org1_2 = mapper.getOrganisationByID(org1.getOrganisationId());
         assertThat(org1_2, notNullValue());
+        assertThat(org1_2.getStatus(), is(org1.getStatus()));
+        assertThat(org1_2, is(org1));
 
         mapper.insertOrganisation(org1);
         sqlSession.commit();
