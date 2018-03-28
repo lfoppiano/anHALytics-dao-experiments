@@ -26,10 +26,6 @@
       SELECT * FROM ORGANISATION;
     </select>
 
-<!--    <insert id="insertOrganisation" useGeneratedKeys="true" flushCache="true" keyProperty="organisationId">
-        INSERT INTO ORGANISATION (type, url, status) VALUES (#{type}, #{url}, #{status})
-    </insert>-->
-
     <insert id="insertOrganisation" useGeneratedKeys="true" flushCache="true" keyProperty="organisationId">
         INSERT INTO ORGANISATION (type, url, status) VALUES (#{type}, #{url}, #{status})
     </insert>

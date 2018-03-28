@@ -36,12 +36,15 @@ public class PetitMain {
                 System.out.println(n.getName());
             }
 
-            List<Organisation_Identifier> ids = mapper.getOrganisationIdentifiersByOrganisationID(5);
+            List<Organisation> ids = mapper.getAllOrganisations();
 
             System.out.println(ids.size());
-            for (Organisation_Identifier n : ids) {
-                System.out.println(n.getId());
-            }
+
+            mapper.getOrganisationIdentifiersByOrganisationId(2);
+
+//            for (Organisation_Identifier n : ids) {
+//                System.out.println(n.getId());
+//            }
 
 
         } finally {

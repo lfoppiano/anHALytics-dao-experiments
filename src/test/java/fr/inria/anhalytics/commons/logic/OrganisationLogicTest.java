@@ -7,6 +7,7 @@ import org.apache.ibatis.cursor.Cursor;
 import org.apache.ibatis.executor.BatchResult;
 import org.apache.ibatis.session.*;
 import org.apache.ibatis.session.defaults.DefaultSqlSession;
+import org.easymock.Capture;
 import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
@@ -51,13 +52,16 @@ public class OrganisationLogicTest {
         expect(sessionFactoryMock.openSession()).andReturn(sqlSessionMock);
         expect(sqlSessionMock.getMapper((Class<Object>) anyObject())).andReturn(organisationIbatisDAOMock);
 
-        expect(organisationIbatisDAOMock.insertOrganisation(organisation)).andReturn(1l);
+        Capture<Organisation> capturedOrganisation = Capture.newInstance();
+        
+        expect(organisationIbatisDAOMock.insertOrganisation(capture(capturedOrganisation))).andReturn(1l);
         expect(organisationIbatisDAOMock.insertOrganisationName(1l, "name1", dateName1)).andReturn(1l);
         expect(organisationIbatisDAOMock.insertOrganisationName(1l, "name2", dateName2)).andReturn(2l);
 
         sqlSessionMock.close();
         replay(sessionFactoryMock, sqlSessionMock, organisationIbatisDAOMock);
         target.create(organisation);
+        System.out.println(capturedOrganisation.getValue().getOrganisationId());
         verify(sessionFactoryMock, sqlSessionMock, organisationIbatisDAOMock);
     }
 

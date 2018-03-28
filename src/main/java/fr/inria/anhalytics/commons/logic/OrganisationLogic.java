@@ -34,13 +34,11 @@ public class OrganisationLogic extends DAO<Organisation, Long> {
     }
 
     @Override
-    public boolean create(Organisation obj) throws SQLException {
+    public boolean create(Organisation obj) {
         SqlSession session = sqlSessionFactory.openSession();
         try {
             OrganisationIbatisDAO organisationMapper = session.getMapper(OrganisationIbatisDAO.class);
-
             organisationMapper.insertOrganisation(obj);
-
 
             for (Organisation_Name name : obj.getNames()) {
                 java.sql.Date updateDate = getDate(name.getLastupdate_date());
@@ -96,12 +94,12 @@ public class OrganisationLogic extends DAO<Organisation, Long> {
     }
 
     @Override
-    public boolean delete(Organisation obj) throws SQLException {
+    public boolean delete(Organisation obj) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public boolean update(Organisation organisation) throws SQLException {
+    public boolean update(Organisation organisation) {
         SqlSession session = sqlSessionFactory.openSession();
         boolean result = false;
         try {
@@ -161,7 +159,7 @@ public class OrganisationLogic extends DAO<Organisation, Long> {
     }
 
     @Override
-    public Organisation find(Long id) throws SQLException {
+    public Organisation find(Long id) {
         SqlSession session = sqlSessionFactory.openSession();
         Organisation organisation = null;
         try {
@@ -170,7 +168,7 @@ public class OrganisationLogic extends DAO<Organisation, Long> {
             // This can be done with a single query and three JOIN
             organisation = organisationMapper.getOrganisationByID(id);
             organisation.getNames().addAll(organisationMapper.getOrganisationNamesByOrganisationId(id));
-            organisation.getOrganisation_identifiers().addAll(organisationMapper.getOrganisationIdentifiersByOrganisationID(id));
+            organisation.getOrganisation_identifiers().addAll(organisationMapper.getOrganisationIdentifiersByOrganisationId(id));
             List<Organisation> mothers = organisationMapper.getMotherOrganisationByOrganisationID(id);
 
             for (Organisation mother : mothers) {

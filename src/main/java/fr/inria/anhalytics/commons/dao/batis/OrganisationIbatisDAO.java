@@ -38,12 +38,11 @@ public interface OrganisationIbatisDAO {
     void updatePartOfDates(Date fromDate, Date untilDate, long organisationID, long organisationMotherID);
 
     //SELECT
-
     Organisation getOrganisationByID(long organisationID);
 
     List<Organisation_Name> getOrganisationNamesByOrganisationId(long organisationID);
 
-    List<Organisation_Identifier> getOrganisationIdentifiersByOrganisationID(long organisationID);
+    List<Organisation_Identifier> getOrganisationIdentifiersByOrganisationId(long organisationID);
 
     List<Organisation> getAllOrganisations();
 

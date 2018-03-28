@@ -6,9 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author azhar
- */
 public class Organisation implements Serializable {
 
     private Long organisationId;
@@ -34,30 +31,18 @@ public class Organisation implements Serializable {
         this.source = source;
     }
 
-    /**
-     * @return the organisationId
-     */
     public Long getOrganisationId() {
         return organisationId;
     }
 
-    /**
-     * @param organisationId the organisationId to set
-     */
     public void setOrganisationId(Long organisationId) {
         this.organisationId = organisationId;
     }
 
-    /**
-     * @return the type
-     */
     public String getType() {
         return type;
     }
 
-    /**
-     * @param type the type to set
-     */
     public void setType(String type) {
         if (type.length() > 45) {
             type = type.substring(0, 44);
@@ -65,16 +50,10 @@ public class Organisation implements Serializable {
         this.type = type;
     }
 
-    /**
-     * @return the url
-     */
     public String getUrl() {
         return url;
     }
 
-    /**
-     * @param url the url to set
-     */
     public void setUrl(String url) {
         if (url.length() > 255) {
             url = url.substring(0, 254);
@@ -99,9 +78,6 @@ public class Organisation implements Serializable {
 //        this.structure = structure;
 //    }
 
-    /**
-     * @return the name
-     */
     public List<Organisation_Name> getNames() {
         if (this.names == null) {
             this.names = new ArrayList<Organisation_Name>();
@@ -109,9 +85,6 @@ public class Organisation implements Serializable {
         return names;
     }
 
-    /**
-     * @param name the name to set
-     */
     public void addName(Organisation_Name name) {
         if (this.names == null) {
             this.names = new ArrayList<Organisation_Name>();
@@ -161,23 +134,14 @@ public class Organisation implements Serializable {
 
     }
 
-    /**
-     * @return the status
-     */
     public String getStatus() {
         return status;
     }
 
-    /**
-     * @param status the status to set
-     */
     public void setStatus(String status) {
         this.status = status;
     }
 
-    /**
-     * @return the organisation_identifiers
-     */
     public List<Organisation_Identifier> getOrganisation_identifiers() {
         if (this.organisation_identifiers == null) {
             this.organisation_identifiers = new ArrayList<Organisation_Identifier>();
@@ -185,34 +149,29 @@ public class Organisation implements Serializable {
         return organisation_identifiers;
     }
 
-    /**
-     * @param organisation_identifiers the organisation_identifiers to set
-     */
     public void setOrganisation_identifiers(List<Organisation_Identifier> organisation_identifiers) {
         this.organisation_identifiers = organisation_identifiers;
     }
 
     @Override
-    public boolean equals(Object object) {
-        boolean isEqual = false;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Organisation)) return false;
 
-        if (object != null && object instanceof Organisation) {
-            isEqual = (this.organisationId.equals(((Organisation) object).organisationId));
-        }
+        Organisation that = (Organisation) o;
 
-        return isEqual;
+        return getOrganisationId() != null ? getOrganisationId().equals(that.getOrganisationId()) : that.getOrganisationId() == null;
     }
 
-    /**
-     * @return the source
-     */
+    @Override
+    public int hashCode() {
+        return getOrganisationId() != null ? getOrganisationId().hashCode() : 0;
+    }
+
     public String getSource() {
         return source;
     }
 
-    /**
-     * @param source the source to set
-     */
     public void setSource(String source) {
         this.source = source;
     }
